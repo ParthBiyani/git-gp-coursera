@@ -1,6 +1,6 @@
-from src.database import get_db, startup_event
+from .database import get_db, startup_event
 from fastapi import FastAPI
-from src.models import Item
+from .models import Item
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
@@ -65,3 +65,7 @@ def delete_item(item_id: int):
     conn.execute("DELETE FROM items WHERE id = ?", (item_id,))
     conn.commit()
     return {"message": "Item deleted"}
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
